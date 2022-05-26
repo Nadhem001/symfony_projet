@@ -74,9 +74,7 @@ class LivresType extends AbstractType
                     ])
                 ],
             ])
-            ->add('disp',null,[
-                'label' => 'Disponible:'
-            ])
+
             ->add('auteurs', EntityType::class, [
                 'class' => Auteurs::class,
                 'query_builder' => function (EntityRepository $er) {
