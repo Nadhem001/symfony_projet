@@ -114,7 +114,7 @@ $(document).ready(function() {
         
           
       })
-      $(document).on("click","#applique_action_livre",function(){
+      $(document).on("change","#reservation_date_fin",function(){
             $("#applique_action_livre").prop( "disabled", false ); 
       })
 
