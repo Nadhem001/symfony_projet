@@ -172,7 +172,7 @@ class EmpruntController extends AbstractController
      * @Route("/admin/emprunt/add",name="add_emprunt")
      */
     public function add_emprunt(Request $request)
-    {   $livres = $this->LivresRepository->findBy(['disp'=>0]);
+    {   $livres = $this->LivresRepository->findAll();
         $users = $this->UserRepository->findAll();
         return $this->render('emprunt/add_emprunt.html.twig', [
             'controller_name' => 'Livre empreunte',
@@ -205,7 +205,7 @@ class EmpruntController extends AbstractController
                 
                 $livre = $this->LivresRepository->findOneBy(["id"=>$request->get("liste_livre")]);
                 $emprunt->setLivre($livre);
-                if($emprunt->getLivre()->setDisp(0) != $request->get("liste_livre")){
+                if($emprunt->getLivre()->getId() != $request->get("liste_livre")){
                     $emprunt->getLivre()->setDisp(0);
                     $livre->setDisp(1);
                 }
