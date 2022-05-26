@@ -46,7 +46,13 @@ class LivresRepository extends ServiceEntityRepository
     }
 
 
-  
+    public function getAllLivre()
+    {
+            return $this->createQueryBuilder('l')
+                ->getQuery()
+                
+            ;
+    }
 
 //    /**
 //     * @return Livres[] Returns an array of Livres objects

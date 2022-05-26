@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Livres;
 use App\Repository\LivresRepository;
+use Knp\Component\Pager\PaginatorInterface;
+
 class HomeController extends AbstractController
 {
     private $entityManager;
@@ -23,12 +25,17 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="app_home")
      */
-    public function index(): Response
+    public function index(PaginatorInterface $paginator,Request $request): Response
     {
-        $livres = $this->Livrerepository->findAll();
+        $livres = $paginator->paginate(
+            $this->Livrerepository->getAllLivre(), 
+            
+            $request->query->getInt('page', 1), 1
+        );  
+       
       
         return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
+            'controller_name' => 'Livres',
             'livres'=>$livres
         ]);
     }

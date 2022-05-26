@@ -42,10 +42,12 @@
     {% if app.user.username is defined %}
          <div class="profil_nav"><a href="{{path('edit_user')}}" class="btn btn-outline-info">Mon Profil</a></div>  
          <div><a href="{{path('app_logout')}}" class="btn btn-outline-warning">Déconnecter</a></div>
-    {% else %}
-    <div class="btn_cnx">
-        <a href="{{path('inscription')}}">Inscription</a> <a href="{{path('app_login')}}">Connection</a> 
-    </div>
     {% endif %}
   </div>
+      {% if app.user.username is not defined  %}
+    <div class="btn_cnx">
+        <a href="{{path('inscription')}}">Inscription</a> <a href="{{path('app_login')}}">Connexion</a> 
+    </div>
+    {% endif %}
+
 </nav>
