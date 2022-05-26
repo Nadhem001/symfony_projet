@@ -4,7 +4,13 @@
 
 {% block body %}
 <div class="inscription">
-    <h1 class="h3 mb-3 font-weight-normal">Formulaire d'inscription</h1>
+    <h1 class="h3 mb-3 font-weight-normal">
+        {% if app.user.username is defined %}
+            Modifier votre profil
+        {% else %}
+            Formulaire d'inscription
+        {% endif %}
+    </h1>
 {{ form_start(form) }}
     <div class="form-row"> 
         <div class='col-md-6'>{{ form_row(form.email,{ 'attr': {'class': 'form-control'} }) }}

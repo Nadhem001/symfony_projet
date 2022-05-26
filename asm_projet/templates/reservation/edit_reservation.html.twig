@@ -38,17 +38,22 @@
             </select>
         </div>
     </div>
-        <div class="form-row bloc_date">
-            <div class="col">
-                <p><label> Date de début d'reservation: </label></p> <input name="reservation_date_debut" class="form-control datepicker"  type="text" id="reservation_date_debut" value="{{reservation.DateReservation|date('Y-m-d')}}" required>
-            </div>
-            <div class="col">
-                <p><label> Date de fin d'reservation: </label> </p><input name="reservation_date_fin" class="form-control datepicker"  type="text" id="reservation_date_fin"value="{{reservation.DateFin|date('Y-m-d')}}" required >
-            </div>
+    <div class="form-row bloc_date">
+
+        <div class="col">
+            <p><label> Date de début d'reservation: </label></p> <input name="reservation_date_debut" class="form-control datepicker"  type="text" id="reservation_date_debut" value="{{reservation.DateReservation|date('Y-m-d')}}" required>
+        </div>
+
+        <div class="col">
+            <p><label> Date de fin d'reservation: </label> </p><input name="reservation_date_fin" class="form-control datepicker"  type="text" id="reservation_date_fin"value="{{reservation.DateFin|date('Y-m-d')}}" required >
+        </div>
     </div>
-    <div class="alert alert-danger alert_date_indispo" role="alert" >
-        Cette date est indisponible
+    <div class="form-row">
+        <div class="alert alert-danger alert_date_indispo" role="alert" >
+            Cette date est indisponible
+        </div>
     </div>
+  
     <div class="form-row"> <button id="modif_reservation" type="submit" class="btn btn-primary btn_form" disabled >Modifier</button></div>
 
     </form>
