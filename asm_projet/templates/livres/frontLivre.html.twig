@@ -27,8 +27,8 @@
             </div>
         </div>
         <div class="col-md-3 action_livre_front">
-
-            <div class="emprunts_consulter"{% if is_granted('ROLE_ADMIN') %} style="display:none"{% endif %}>
+        {% if  is_granted('ROLE_USER') %} 
+            <div class="emprunts_consulter">
 
                 {% set disabled = "" %}
                 {% set disabled_nb_max = "" %}
@@ -57,7 +57,7 @@
                     <button class="btn btn-secondary" id="applique_action_livre" disabled>Appliquer</button>
                 </div>
             </div>
-
+        {% endif %}
         </div>
     </div>
     {% if app.user is null %}
