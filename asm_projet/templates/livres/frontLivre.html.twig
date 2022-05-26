@@ -27,8 +27,8 @@
             </div>
         </div>
         <div class="col-md-3 action_livre_front">
-        
-            <div class="emprunts_consulter">
+
+            <div class="emprunts_consulter"{% if is_granted('ROLE_ADMIN') %} style="display:none"{% endif %}>
 
                 {% set disabled = "" %}
                 {% set disabled_nb_max = "" %}
