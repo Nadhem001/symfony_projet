@@ -1,4 +1,5 @@
 function reservation_livre_ajax(id_livre,date_debut,date_fin){
+    
     $.ajax({
         method:'POST',
         url:$("#action_livre").val(),
@@ -101,7 +102,7 @@ $(document).ready(function() {
 
         $("#reservation_date_debut,#reservation_date_fin").prop( "disabled", true );
         
-        $("#applique_action_livre").prop( "disabled", false );  
+        
 
       })
       $(document).on("change","#reserver_livre",function(){
@@ -110,12 +111,12 @@ $(document).ready(function() {
       
         $("#reservation_date_debut,#reservation_date_fin").prop( "disabled", false );
       
-        $("#applique_action_livre").prop( "disabled", false );
+        
           
       })
-
-
-
+      $(document).on("click","#applique_action_livre",function(){
+            $("#applique_action_livre").prop( "disabled", false ); 
+      })
 
     //Reservation livre
      $(document).on("click","#applique_action_livre",function(){
