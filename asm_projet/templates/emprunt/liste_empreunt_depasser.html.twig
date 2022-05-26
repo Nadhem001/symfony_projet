@@ -1,0 +1,37 @@
+ {% extends 'base.html.twig' %}
+
+{% block title %}Hello EmpruntController!{% endblock %}
+
+{% block body %}
+<div class="livres_emprunts">
+<h3>Liste des emprunts depasser la date</h3>
+    <table class="table table-striped">
+        <thead>
+            <th>Title</th>
+            <th>Adhérant</th>
+            <th>Date de sortie</th>
+            <th>Date de retour</th>
+            <th>Notifier</th>
+        </thead>
+        <tbody>
+            {% for emprunt in emprunts %}
+                <tr id="emprunt_{{emprunt.id}}">
+                    <td>{{ emprunt.livre.titre }}</td>
+                    <td>{{ emprunt.user.Email}}</td>
+                    <td>{{ emprunt.DateSortie |date('Y-m-d') }}</td>
+                    <td>{{ emprunt.DateRetour |date('Y-m-d') }}</td>
+                    <td id="send_mail">
+                    {% if emprunt.Notifie != 1 %}
+                        <a href="javascript:void(0)" class="send_alert_mail" data-id="{{emprunt.id}}" data-mail="{{emprunt.user.Email}}">Notifier</a>
+                    {% else %}
+                        <i class="fa-solid fa-check"></i>
+                    {% endif %}
+                    </td>
+                    
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <input hidden id="send_alert_url" value="{{path('send_mail')}}">
+</div>
+ {% endblock %}

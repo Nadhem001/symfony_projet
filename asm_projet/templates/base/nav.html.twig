@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light navbar_bloc">
+  <a class="navbar-brand" href="#">ASM BIBLIO</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item ">
+        <a class="nav-link" href="{{path('app_home')}}">Home <span class="sr-only">(current)</span></a>
+      </li>
+      {% if is_granted('ROLE_ADMIN') %}
+      
+        <li class="nav-item ">
+            <a class="nav-link" href="{{path('admin_emprunt')}}">Liste des emprunts<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item ">
+           <a class="nav-link" href="{{path('admin_reservation')}}">Liste des réservations<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item ">
+            <a class="nav-link" href="{{path('app_user')}}">Utilisateurs <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item ">
+            <a class="nav-link" href="{{path('app_livres')}}">Livres <span class="sr-only">(current)</span></a>
+        </li>
+    </ul>
+
+      {% else %}
+          {% if app.user.username is defined %}
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Mes Livres
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{{path('app_reservation')}}">Mes réservations</a>
+                  <a class="dropdown-item" href="{{path('app_emprunt')}}">Mes emprunts</a>
+                </div>
+              </li> 
+            </ul>
+        {% endif %}
+    {% endif %}
+    {% if app.user.username is defined %}
+         <div class="profil_nav"><a href="{{path('edit_user')}}" class="btn btn-outline-info">Mon Profil</a></div>  
+         <div><a href="{{path('app_logout')}}" class="btn btn-outline-warning">Déconnecter</a></div>
+    {% else %}
+    <div class="btn_cnx">
+        <a href="{{path('inscription')}}">Inscription</a> <a href="{{path('app_login')}}">Connection</a> 
+    </div>
+    {% endif %}
+  </div>
+</nav>

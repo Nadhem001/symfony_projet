@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello LivresController!{% endblock %}
+
+{% block body %}
+<div class="inscription">
+{{ form_start(form) }}
+    <div class="form-row"> 
+        <div class='col-md-6'>{{ form_row(form.email,{ 'attr': {'class': 'form-control'} }) }}
+            <span class="alert alert-danger error" id="error_mail">cette adresse est utilisée</span>
+        </div>
+
+    </div>
+        <div class="form-row"> 
+         <div class='col-md-6'>{{ form_row(form.password,{ 'attr': {'class': 'form-control'} }) }}</div>
+    </div>
+    <div class="form-row"> 
+        <div class='col-md-6'>{{ form_row(form.num_tele,{ 'attr': {'class': 'form-control'} }) }}
+            <span class="alert alert-danger error" id="error_tele">Pas un numéro de téléphone valide</span>
+        </div>
+         
+    </div>
+    <div class="form-row"> 
+        <div class='col-md-3'>{{ form_row(form.genre,{ 'attr': {'class': 'form-control'} }) }}</div>
+        <div class='col-md-3'>{{ form_row(form.date_ne,{ 'attr': {'class': 'form-control'} }) }}</div>
+    </div>
+        {{ form_widget(form) }}
+    <div class="btn_form">
+        <button class="btn btn-primary" id="inscription_btn" {% if app.user.username is not defined %} disabled {% endif %}>{{ button|default('Enregistrer') }}</button>
+    </div>
+    {{ form_end(form) }}
+</div>
+<input hidden value="{{path('verif_email')}}"  id="verif_email" />
+    {% endblock %}

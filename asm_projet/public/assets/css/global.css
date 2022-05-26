@@ -1,0 +1,137 @@
+.upload_file{
+    border: 1px solid #ffc107c2;
+    text-align: center;
+    color: #ffc107;
+    border-width: medium;
+    display: block;
+}
+.input_file{
+    visibility:hidden;
+    height: 0;
+}
+
+.cover_livre_index{
+    width: 100%;
+    height: 300px;
+}
+.body_card_index{
+    height: 200px;
+    border-bottom: 1px solid #cecece;
+}
+.lien_livre{
+    color:black;
+    
+}
+.error{
+    display:none;
+    margin-top: 5px;
+}
+.navbar_bloc{
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    margin-bottom: 50px;
+}
+.btn_form{
+    margin-top: 10px;
+}
+.btn_cnx a{
+    color:black;
+}
+
+.btn_cnx a:hover{
+    color:rgb(200, 148, 17);
+    text-decoration:none;
+}
+.profil_nav{
+    padding: 5px;
+}
+.btn_right{
+    float: right;
+    margin-bottom: 10px;
+}
+.bloc_btn_direct_right{
+    margin-bottom: 20px;
+}
+.direct_right{
+    float: right;
+}
+.page-footer{
+    background-color: #f8f9fa;
+}
+.btn_form{
+    margin-top:15px;
+}
+
+
+
+#deja_reserve{
+    display:none;
+}
+.front_page_livre{
+    border-bottom: 1px solid #cecece;
+    padding-bottom:10px;
+
+}
+.img_livre_slug{
+    width:100%;
+}
+.action_livre_front{
+    position: relative;
+}
+.emprunts_consulter{
+    border: 1px solid #dbdbdb;
+   padding: 8px 10px     20px;
+    
+}
+.alert_user_emprunt_max{
+    margin-top: 10px;
+    display: none;
+}
+.alert_date_indispo{
+    margin-top: 10px;
+    display: none;
+}
+.emprunts_livre{
+    border-bottom: 1px solid rgba(56, 56, 56, 0.2);
+    padding: 15px;
+}
+.consulter_livre{
+    border-bottom: 1px solid rgba(56, 56, 56, 0.2);
+    padding: 15px;
+}
+.livre_description_head{
+    margin-bottom: 20px;
+    border-bottom: 1px solid #cecece;
+    padding-bottom: 20px;
+}
+
+.lien_livre:hover{
+    color:black;
+    text-decoration: none;
+}
+.auteur_name_slug a{
+    color: #989c95;
+    font-size: 20px;
+}
+.auteur_name_slug {
+    font-size: 20px;
+}
+.btn_action_livre{
+    padding: 15px 30% 0px;
+}
+.zone_date_front {
+    padding-left:20px;
+}
+.auteur_bloc_home{
+    padding: 20px;
+}
+
+
+
+.bloc_user_livre{
+    margin-bottom: 30px;
+}
+.form_add_emprunt{
+    margin-bottom: 15px;
+}

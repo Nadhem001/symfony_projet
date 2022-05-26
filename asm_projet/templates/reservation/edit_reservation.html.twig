@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello reservationController!{% endblock %}
+
+{% block body %}
+<div class="modifier_reservation">
+    <div>
+        <h1> Modifier une reservation</h1>
+    </div>
+
+    <form class="form_add_reservation" action={{path('edit_reservation',{id:reservation.id})}} method="POST">
+    <div class="form-row bloc_user_livre">
+        <div class="col">
+        <div> Liste des livres disponibles </div>
+            <select class="custom-select mr-sm-2" id="liste_livre" name="liste_livre" required >
+              
+                {% for livre in livres %}
+                {% set selected = "" %}
+                    {% if livre.id == reservation.livre.id %}
+                        {% set selected = "selected" %}
+                    {% endif %}
+                    <option value="{{livre.id}}" {{selected}}>{{livre.titre}}</option>
+                {% endfor %}
+            </select>
+            
+        </div>
+        <div class="col">
+        <div> Liste des utilisateurs </div>
+            <select class="custom-select mr-sm-2" id="liste_user" name="liste_user" required >
+               
+                {% for user in users %}
+                 {% set selected = "" %}
+                    {% if user.id == reservation.user.id %}
+                        {% set selected = "selected" %}
+                    {% endif %}
+                    <option value="{{user.id}}" {{selected}}>{{user.email}}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+        <div class="form-row bloc_date">
+            <div class="col">
+                <p><label> Date de début d'reservation: </label></p> <input name="reservation_date_debut" class="form-control datepicker"  type="text" id="reservation_date_debut" value="{{reservation.DateReservation|date('Y-m-d')}}" required>
+            </div>
+            <div class="col">
+                <p><label> Date de fin d'reservation: </label> </p><input name="reservation_date_fin" class="form-control datepicker"  type="text" id="reservation_date_fin"value="{{reservation.DateFin|date('Y-m-d')}}" required >
+            </div>
+    </div>
+    <div class="alert alert-danger alert_date_indispo" role="alert" >
+        Cette date est indisponible
+    </div>
+    <div class="form-row"> <button id="modif_reservation" type="submit" class="btn btn-primary btn_form" disabled >Modifier</button></div>
+
+    </form>
+</div>
+    <input hidden value="{{path('action_livre')}}" id="action_livre">
+{% endblock %}

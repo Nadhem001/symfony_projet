@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des utilisateurs{% endblock %}
+
+{% block body %}
+<div class="user">
+    <div class="row">
+        <div class="col-md-12 bloc_btn_direct_right">
+            <a href="{{path("inscription")}}" class="btn btn-info direct_right">Ajouter un utilisateur</a>
+        </div>
+    </div>
+    <table class="table table-striped">
+            <thead>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Emprunts</th>
+                <th>Réservations</th>
+                <th>Num de tele</th>
+                <th>Genre</th>
+                <th>Date de naissance</th>
+                <th>action</th>
+            </thead>
+            <tbody>
+                {% for user in users %}
+               
+                    <tr id="user_{{user.id}}">
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.Roles[0]  }}</td>
+                        <td>Emprunts</td>
+                        <td>Reservations</td>
+                        <td>{{ user.NumTele}}</td>
+                        <td>{{ user.Genre}}</td>
+                        <td>{{ user.DateNe |date('Y-m-d')}}</td>
+                        <td>
+                            <a href="{{path('inscription',{id:user.id})}}" ><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a href="javascript:void(0)" class="btn_supprimer_user" data-path="{{path('supprime_user')}}" data-id="{{user.id}}"  ><i class="fa fa-trash"></i></a>
+                        </td>
+                     
+                    </tr>
+                
+                {% endfor %}
+            </tbody>
+        </table>
+
+</div>
+{% endblock %}

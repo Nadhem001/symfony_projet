@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+
+
+<div class="row">
+    {% for livre in livres %}
+    <a href="{{path('slug_show_livres',{slug:livre.SlugLivre})}}" class="lien_livre">
+        <div class="col-md-3">
+            <div class="card" >
+            <img class="card-img-top cover_livre_index" src="{{ asset('uploads/cover/' ~ livre.PathCover ) }}" alt="image de livre">
+            <div class="card-body body_card_index">
+                <h5 class="card-title">{{livre.titre}}</h5>
+                <p class="card-text">{{livre.description |slice(0, 100) }}</p>
+            </div>
+            <div class="auteur_bloc_home">
+                    <label>Auteur</label> : <a href="">{{livre.Auteurs.nom}}</a> 
+            </div>
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

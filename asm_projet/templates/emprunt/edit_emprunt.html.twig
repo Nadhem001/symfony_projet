@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EmpruntController!{% endblock %}
+
+{% block body %}
+<div class="add_emprunt">
+    <div>
+        <h1> Modifier une emprunt</h1>
+    </div>
+
+    <form class="form_add_emprunt" action={{path('edit_emprunt',{id:emprunt.id})}} method="POST">
+    <div class="form-row bloc_user_livre">
+        <div class="col">
+        <div> Liste des livres disponibles </div>
+            <select class="custom-select mr-sm-2" id="liste_livre" name="liste_livre" required >
+                <option value="{{emprunt.livre.id}}" selected>{{emprunt.livre.titre}}</option>
+                
+                {% for livre in livres %}
+                    
+                    <option value="{{livre.id}}" >{{livre.titre}}</option>
+                {% endfor %}
+            </select>
+            
+        </div>
+        <div class="col">
+        <div> Liste des utilisateurs </div>
+            <select class="custom-select mr-sm-2" id="liste_user" name="liste_user" required >
+                <option ></option>
+               
+                {% for user in users %}
+                 {% set selected = "" %}
+                    {% if user.id == emprunt.user.id %}
+                        {% set selected = "selected" %}
+                    {% endif %}
+                    <option value="{{user.id}}" {{selected}}>{{user.email}}</option>
+                {% endfor %}
+            </select>
+             <div class="alert alert-danger alert_user_emprunt_max" role="alert" >
+                Cet utilisateur a le maximum de livre à emprunter
+            </div>
+        </div>
+    </div>
+    <div class="form-row bloc_date">
+            <div class="col">
+                <p><label> Date de début d'emprunt: </label></p> <input name="emprunt_date_debut" class="form-control datepicker"  type="text"   id="emprunt_date_debut" value="{{emprunt.DateSortie|date('Y-m-d')}}" required>
+            </div>
+            <div class="col">
+                <p><label> Date de fin d'emprunt: </label> </p><input name="emprunt_date_fin" class="form-control datepicker"  type="text" id="emprunt_date_fin"value="{{emprunt.DateRetour|date('Y-m-d')}}" required >
+            </div>
+            
+        </div>
+        <div class="alert alert-danger alert_date_indispo" role="alert" >
+               Cette date est indisponible
+        </div>
+    <div class="form-row"><button id="add_emprunt" type="submit" class="btn btn-primary btn_form">Modifier</button></div>
+
+    </form>
+</div>
+
+<input hidden value="{{path('liste_emprunt_by_user')}}" id="liste_emprunt_by_user_url">
+<input hidden value="{{path('verif_emprent_livre_by_date')}}" id="verif_emprent_livre_by_date">
+{% endblock %}

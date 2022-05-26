@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ReservationController!{% endblock %}
+
+{% block body %}
+
+<div class="livres_index">
+    <div>
+        <h1> Liste des réservations</h1>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <th>Titre</th>
+            <th>Date de debut</th>
+            <th>date de fin</th>
+            <th>action</th>
+        </thead>
+        <tbody>
+            {% for reservation in reservations %}
+            
+                <tr id="reservation_{{reservation.id}}">
+                    <td>{{ reservation.livre.titre }}</td>
+                    <td>{{ reservation.DateReservation |date('Y-m-d') }}</td>
+                    <td>{{ reservation.DateFin |date('Y-m-d')}}</td>
+                    <td>
+                        <a href="{{path('slug_show_livres',{'slug':reservation.livre.SlugLivre} )}}" target="_blank"><i class="fa-solid fa-eye"></i> </a>
+                        <a href="{{path('edit_reservation',{id:reservation.id})}}" >Edit</a>
+                        <a href="javascript:void(0)" class="btn_supprimer_reservation" data-path="{{path('supprime_reservation')}}" data-id="{{reservation.id}}"  ><i class="fa fa-trash"></i></a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a class="reservation_to_emprunt"href="javascript:void(0)" data-path="{{path('reservation_to_emprunt')}}" data-id="{{reservation.id}}" >Emprunter</a>
+                        {% endif %}
+                    </td>
+                    
+                </tr>
+            
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

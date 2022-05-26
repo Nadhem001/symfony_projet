@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{controller_name}}{% endblock %}
+
+{% block body %}
+
+<div class="show_livre front_page_livre">
+    <div class="row">
+        <div class="col-md-3">
+            <img class="img_livre_slug" src="{{ asset('uploads/cover/' ~ livre.PathCover ) }}">
+        </div>
+        <div class="col-md-6 livre_description">
+            <div class="livre_description_head">
+                <div class="titre_livre_slug">
+                    <h1>{{livre.titre}}</h1>
+                </div>
+                <div class="auteur_livre_slug">
+                    <h2 class="auteur_name_slug">
+                        Auteur : <a href="">{{livre.Auteurs.nom}}</a>
+                    </h2>
+                </div>
+                <div>Date de parution : {{ livre.DateSortie |date('Y-m-d') }}</div>
+            </div>
+            <div class="description_livre_slug">
+                <h4>Description: </h4>
+                <p>{{livre.description}}</p>
+            </div>
+        </div>
+        <div class="col-md-3 action_livre_front">
+        
+            <div class="emprunts_consulter">
+
+                {% set disabled = "" %}
+                {% set disabled_nb_max = "" %}
+                {% set display_reserver = "display:none" %}
+                {% set disponible = "display:none" %}
+
+                {% set display_emprunt_max = "display:none" %}               
+                {% set display_emprunt = "display:none" %}
+            
+                {% if liste_livre_reserver_by_user is defined and livre.id in liste_livre_reserver_by_user  %}
+                     {% set disabled = "disabled" %}
+                     {% set display_reserver = "" %}
+                {% endif %}
+
+                <div class="reserver_livre_bloc">
+                    <input type="radio" id="reserver_livre" data-id="{{livre.id}}" name="action_user_livre" value="reserver" {{disabled}}> <label for="consulter_livre">Réserver ce livre</label>
+                    <div class="zone_date_front">
+                        <p><label> Date de début de réservation: </label> <input type="text" id="reservation_date_debut" class="datepicker" disabled required></p>
+                        <p><label> Date de fin de réservation: </label> <input type="text" id="reservation_date_fin" class="datepicker" disabled required></p>
+                         <div class="alert alert-info" style="{{display_reserver}}">Vous avez déjà réservé ce livre</div>
+                         <div class="alert alert-info" id='deja_reserve'>ce livre ce déjà réservé dans cette date </div>
+                    </div>
+                </div>
+               
+                <div class="btn_action_livre">
+                    <button class="btn btn-secondary" id="applique_action_livre" disabled>Appliquer</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    {% if app.user is null %}
+        {% set IsUser = "false" %}
+
+    {% else %}
+        {% set IsUser = "true" %}
+    {% endif %}
+    <input hidden value="{{IsUser}}" id="isUser">
+    <input hidden value="{{path('action_livre')}}" id="action_livre">
+    <input hidden value="{{path('livre_commun')}}" id="livre_commun">
+    
+    
+    {{ include ("modal/modale_alert_connecte.html.twig") }}
+    {{ include ("modal/modal_alert_action_livre.html.twig") }}
+</div>
+{% endblock %}

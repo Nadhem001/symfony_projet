@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Emprunts{% endblock %}
+
+{% block body %}
+<div class="livres_emprunts">
+<h1>Liste des emprunts</h1>
+    <div class="row">
+        <div class="col-md-6 bloc_btn_direct_right">
+            <a href="{{path('emprunt_despasser')}}" id="liste_depasser" type="button" class="btn btn-outline-danger btn_right">Empruntés dépassée la date de retour</a>
+        </div>
+        <div class="col-md-6 bloc_btn_direct_right">
+            <a href="{{path('add_emprunt')}}"  id="add_emprunt"  class="btn btn-info ">Ajouter une emprunt</a>
+        </div>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <th>Titre</th>
+            <th>Adhérant</th>
+            <th>Date de debut</th>
+            <th>date de fin</th>
+            <th>action</th>
+        </thead>
+        <tbody>
+            {% for emprunt in emprunts %}
+            
+                <tr id="emprunt_{{emprunt.id}}">
+                    <td>{{ emprunt.livre.titre }}</td>
+                    <td>{{ emprunt.user.Email }}</td>
+                    <td>{{ emprunt.DateSortie |date('Y-m-d') }}</td>
+                    <td>{{ emprunt.DateRetour |date('Y-m-d')}}</td>
+                    <td>
+                        <a href="{{path('slug_show_livres',{'slug':emprunt.livre.SlugLivre} )}}" target="_blank"><i class="fa-solid fa-eye"></i> </a>
+                        <a href="javascript:void(0)" class="btn_supprimer_emprunt" data-path="{{path('supprime_emprunt')}}" data-id="{{emprunt.id}}"  ><i class="fa fa-trash"></i></a>
+                        <a href="javascript:void(0)" id="emprunt_recuperer" data-id="{{emprunt.id}}" >Récupérer</a>
+                    </td>                    
+                </tr>            
+            {% endfor %}
+        </tbody>
+    </table>
+    <input hidden value="{{path('emprunt_recuperer')}}" id="emprunt_recuperer_url">
+</div>
+{% endblock %}

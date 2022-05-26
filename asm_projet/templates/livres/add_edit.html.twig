@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello LivresController!{% endblock %}
+
+{% block body %}
+
+ <div class="add_edit_livre">
+    {{ form_start(form) }}
+    <div class="form-row">
+    
+        <div class='col-md-12'>{{ form_row(form.titre) }}</div>
+        <div class='col-md-12'>{{ form_row(form.description) }}</div>
+       
+    </div>
+    <div class="form-row">
+    
+        <div class='col-md-6'>{{ form_row(form.date_sortie) }}</div>
+        <div class='col-md-6'>{{ form_row(form.date_ajout) }}</div>
+        
+    </div>
+
+    <div class="form-row"> 
+        
+        <div class='col-md-6'>    
+            {{ form_label(form.path_cover) }}
+            <label for="livres_path_cover" class="upload_file">Télécharger l'image de couverture</label>
+            {{ form_widget(form.path_cover) }}
+            {{form_errors(form.path_cover)}}
+        
+        </div>
+        <div class='col-md-6'>
+        
+            {{ form_label(form.path_livre) }}
+            <label for="livres_path_livre" class="upload_file">Télécharger le livre</label>
+            {{ form_widget(form.path_livre) }}
+            {{form_errors(form.path_livre)}}
+        </div>
+        
+    </div>
+    <div class="form-row">
+        <div class='col-md-6'>
+            {{ form_row(form.auteurs) }}
+            <a href="javascript:void(0)" id="ajout_auteur_btn" class="btn btn-info">Ajouter un auteur</a> 
+        </div>
+         
+
+        <div class='col-md-4'>{{ form_row(form.disp) }}</div>
+    </div>
+
+    <div class="form-row">
+         <button class="btn btn-primary btn_form">{{ button|default('Enregistrer') }}</button>
+    </div>
+    {{ form_end(form) }}
+    </div>
+    {{ include ("modal/add_auteur.html.twig") }}
+{% endblock %}
