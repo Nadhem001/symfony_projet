@@ -13,8 +13,6 @@
             <thead>
                 <th>Email</th>
                 <th>Roles</th>
-                <th>Emprunts</th>
-                <th>Réservations</th>
                 <th>Num de tele</th>
                 <th>Genre</th>
                 <th>Date de naissance</th>
@@ -26,8 +24,6 @@
                     <tr id="user_{{user.id}}">
                         <td>{{ user.email }}</td>
                         <td>{{ user.Roles[0]  }}</td>
-                        <td>Emprunts</td>
-                        <td>Reservations</td>
                         <td>{{ user.NumTele}}</td>
                         <td>{{ user.Genre}}</td>
                         <td>{{ user.DateNe |date('Y-m-d')}}</td>

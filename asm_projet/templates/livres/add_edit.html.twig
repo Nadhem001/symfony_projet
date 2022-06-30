@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello LivresController!{% endblock %}
+{% block title %}Eidter Livre{% endblock %}
 
 {% block body %}
 
@@ -40,7 +40,11 @@
     <div class="form-row">
         <div class='col-md-6'>
             {{ form_row(form.auteurs) }}
-            <a href="javascript:void(0)" id="ajout_auteur_btn" class="btn btn-info">Ajouter un auteur</a> 
+            <a href="javascript:void(0)" id="ajout_auteur_btn" class="btn btn-info btn_form">Ajouter un auteur</a> 
+        </div>
+        <div class='col-md-2'>
+            <div><label >Disponibilité</label></div>
+            {{ form_widget(form.en_stocke) }}
         </div>
         
     </div>

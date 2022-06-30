@@ -7,7 +7,25 @@
 <div class="show_livre front_page_livre">
     <div class="row">
         <div class="col-md-3">
-            <img class="img_livre_slug" src="{{ asset('uploads/cover/' ~ livre.PathCover ) }}">
+            <div class="row">
+                <div class="col-md-12">
+                    <img class="img_livre_slug" src="{{ asset('uploads/cover/' ~ livre.PathCover ) }}">
+                </div>
+            </div>
+
+            <div class="row">
+                {% if livre.isEnStocke %}
+                    {% set span = "Disponible" %}
+                    {% set style = "color:green" %}
+                {% else %}
+                    {% set span = "indisponible pour le moment" %}
+                    {% set style = "color:red" %}
+                {% endif %}
+                <div class="col-md-12 stat_livre">
+                    <span style="{{style}}">{{span}}</span>
+                </div>
+            </div>
+
         </div>
         <div class="col-md-6 livre_description">
             <div class="livre_description_head">
@@ -16,7 +34,7 @@
                 </div>
                 <div class="auteur_livre_slug">
                     <h2 class="auteur_name_slug">
-                        Auteur : <a href="">{{livre.Auteurs.nom}}</a>
+                        Auteur : <a href="{{path('livre_auteur',{id:livre.Auteurs.id})}}">{{livre.Auteurs.nom}}</a>
                     </h2>
                 </div>
                 <div>Date de parution : {{ livre.DateSortie |date('Y-m-d') }}</div>
@@ -27,7 +45,7 @@
             </div>
         </div>
         <div class="col-md-3 action_livre_front">
-        {% if  is_granted('ROLE_USER') %} 
+        {% if  not  is_granted('ROLE_ADMIN') %} 
             <div class="emprunts_consulter">
 
                 {% set disabled = "" %}
@@ -66,12 +84,16 @@
     {% else %}
         {% set IsUser = "true" %}
     {% endif %}
+
+
     <input hidden value="{{IsUser}}" id="isUser">
     <input hidden value="{{path('action_livre')}}" id="action_livre">
-    <input hidden value="{{path('livre_commun')}}" id="livre_commun">
+    <input hidden value="{{path('livre_commun_categorie')}}" id="livre_commun_categorie">
     
     
     {{ include ("modal/modale_alert_connecte.html.twig") }}
     {{ include ("modal/modal_alert_action_livre.html.twig") }}
 </div>
+    <div class="livre_categorie">
+    </div>
 {% endblock %}

@@ -40,16 +40,16 @@ class LivresRepository extends ServiceEntityRepository
         }
     }
 
-    public function getAllLivres(){
-        return $this->createQueryBuilder('l')
-                ->getQuery();
-    }
-
-
-    public function getAllLivre()
+    public function getAllLivre(?string $name = null)
     {
-            return $this->createQueryBuilder('l')
-                ->getQuery()
+            $query = $this->createQueryBuilder('l');
+                    if($name != null){
+                        $query->leftJoin("l.auteurs",'a')
+                        ->andWhere('a.nom like :name' ) 
+                        ->setParameter('name', $name);
+                    }
+                    
+                return $query->getQuery();
                 
             ;
     }

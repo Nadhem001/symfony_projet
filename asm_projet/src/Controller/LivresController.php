@@ -16,20 +16,21 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use App\Service\MailerService;
 
 class LivresController extends AbstractController
 {
+    private $MailerService;
     private $entityManager;
     private $Livrerepository;
     private $ReservationRepository;
     private $EmpruntRepository;
 
-    public function __construct(
-        LivresRepository $Livrerepository,
-        ManagerRegistry $doctrine,
-        EmpruntRepository $EmpruntRepository,
-        ReservationRepository $ReservationRepository
-    ) {
+    public function __construct(LivresRepository $Livrerepository, ManagerRegistry $doctrine, EmpruntRepository $EmpruntRepository, MailerService $MailerService ,
+                                ReservationRepository $ReservationRepository )
+         {
+        $this->MailerService = $MailerService;
+
         $this->entityManager = $doctrine->getManager();
         $this->Livrerepository = $Livrerepository;
         $this->ReservationRepository = $ReservationRepository;
@@ -119,6 +120,7 @@ class LivresController extends AbstractController
     public function edit(int $id, Request $request, SluggerInterface $slugger): Response
     {
         $livre = $this->Livrerepository->findOneBy(["id" => $id]);
+       
         $form = $this->createForm(LivresType::class, $livre);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -126,6 +128,21 @@ class LivresController extends AbstractController
             $livre = $form->getData();
 
             $cover_livre = $form->get('path_cover')->getData();
+            if ($form->get('en_stocke')->getData() == true){
+                $reservations = $this->ReservationRepository->findBy(["livre"=>$livre]);
+                
+                if($reservations){
+                    $objet = "Livre disponible";
+
+                    $html = "Nous avons le plaisir de vous informer que le livre ".$livre->getTitre()." est devenu disponible pour vous";
+            
+                    foreach($reservations as $reservation){
+                        $this->MailerService->sendEmail($reservation->getUser()->getEmail(),$objet,$html);
+                    }
+                }
+
+            }
+           
 
             if ($cover_livre) {
                 $originalFilename = pathinfo($cover_livre->getClientOriginalName(), PATHINFO_FILENAME);
@@ -204,9 +221,9 @@ class LivresController extends AbstractController
     }
 
     /**
-     * @Route("/livres/commun/livre_commun", name="livre_commun")
+     * @Route("/livres/commun/livre_commun_categorie", name="livre_commun_categorie")
      */
-    public function get_livre_commun(Request $request)
+    public function get_livre_commun_categorie(Request $request)
     {
 
         $livres = $this->Livrerepository->findAll();

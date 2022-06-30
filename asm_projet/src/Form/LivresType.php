@@ -86,6 +86,7 @@ class LivresType extends AbstractType
                 'placeholder' => 'Choisissez ...'
                 
             ])
+            ->add('en_stocke')
         ;
     }
 

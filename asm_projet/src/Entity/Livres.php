@@ -30,7 +30,7 @@ class Livres
     private $description;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $prix;
 
@@ -83,6 +83,11 @@ class Livres
      * @ORM\OneToMany(targetEntity=Emprunt::class, mappedBy="livre_id")
      */
     private $emprunts;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $en_stocke;
 
     public function __construct()
     {
@@ -281,6 +286,18 @@ class Livres
     public function getEmprunts(): Collection
     {
         return $this->emprunts;
+    }
+
+    public function isEnStocke(): ?bool
+    {
+        return $this->en_stocke;
+    }
+
+    public function setEnStocke(bool $en_stocke): self
+    {
+        $this->en_stocke = $en_stocke;
+
+        return $this;
     }
 
 }

@@ -1,27 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}{{controller_name}}{% endblock %}
 
 {% block body %}
 
 <div class="livre_home">
     <div class="row">
+        <div class="col-md-12">
+            <h1 class="titre_home">Bienvenue sur ASM BIBLIO!</h1>
+        </div>
+    </div>
+
+    {% if auteur is defined %}
+
+    <div class="row bloc_auteur">
+        <div class="col-md-12">
+            <h3 class="auteur_nom_bloc">Auteur: <em>{{auteur.nom}}</em></h3>
+            <div >
+                <h4 class="bio_auteur">Biographie de {{auteur.nom}}:</h4>
+                <p class="desc_auteur">{{auteur.description}}</p>
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
+    <div class="row">
+        <div class="col-md-12 index_titre_liste">
+            <h3>Liste des livres {% if auteur is defined %}de l'auteur {{auteur.nom}} {% endif %}</h3>
+        </div>
+    </div>
+    <div class="row">
         {% if livres is not null %}
             {% for livre in livres %}
-            <a href="{{path('slug_show_livres',{slug:livre.SlugLivre})}}" class="lien_livre">
-                <div class="col-md-3">
+            <div class="col-md-3">
+                <a href="{{path('slug_show_livres',{slug:livre.SlugLivre})}}" class="lien_livre">
                     <div class="card" >
-                    <img class="card-img-top cover_livre_index" src="{{ asset('uploads/cover/' ~ livre.PathCover ) }}" alt="image de livre">
-                    <div class="card-body body_card_index">
-                        <h5 class="card-title">{{livre.titre}}</h5>
-                        <p class="card-text">{{livre.description |slice(0, 100) }}</p>
+                        <img class="card-img-top cover_livre_index" src="{{ asset('uploads/cover/' ~ livre.PathCover )  }}" alt="image de livre">
+                        <div class="card-body body_card_index">
+                            <h5 class="card-title">{{livre.titre}}</h5>
+                            <p class="card-text">{{livre.description |slice(0, 100) }}</p>
+                        </div>
+                        <div class="auteur_bloc_home">
+                            <h2 class="auteur_name_slug">
+                                Auteur : <a href="{{path('livre_auteur',{id:livre.Auteurs.id})}}">{{livre.Auteurs.nom}}</a>
+                            </h2> 
+                        </div>
                     </div>
-                    <div class="auteur_bloc_home">
-                            <label>Auteur</label> : <a href="">{{livre.Auteurs.nom}}</a> 
-                    </div>
-                    </div>
-                </div>
-            </a>
+                </a>
+            </div>
 
             {% endfor %}
         {% else %}
@@ -29,6 +55,8 @@
         {% endif %}
         
     </div>
+    </div>
+    
     <div class="row">
         <div class="col-md-12">
             <div class="navigation">
@@ -36,5 +64,6 @@
             </div>
         </div>
     </div>
+
 </div>
 {% endblock %}
